@@ -33,19 +33,18 @@ choice = st.sidebar.radio(
     "Choose a dataset",   
     ('Default', 'User-defined '),
     index = 0
-    
-)
+    )
 
 st.write(f"## You Have Selected <font color='Aquamarine'>{choice}</font> Dataset", unsafe_allow_html=True)
 
 def get_default_dataset(name):
-    data = None
-    if name == 'Iris':
-        data = datasets.load_iris()
-    elif name == 'Wine':
-        data = datasets.load_wine()
-    else:
-        data = datasets.load_breast_cancer()
+    data = pd.read_csv(onlinedeliverydata)
+    # if name == 'Iris':
+    #     data = datasets.load_iris()
+    # elif name == 'Wine':
+    #     data = datasets.load_wine()
+    # else:
+    #     data = datasets.load_breast_cancer()
     X = data.data
     y = data.target
     return X, y
@@ -56,13 +55,13 @@ def add_dataset_ui(choice_name):
     X_names = []
     X1 = []
     if choice_name == 'Default':
-       dataset_name = st.sidebar.selectbox(
-            'Select Dataset',
-            ('Iris', 'Breast Cancer', 'Wine')
-        )
-       X, y = get_default_dataset (dataset_name)
+      #  dataset_name = st.sidebar.selectbox(
+      #       'Select Dataset',
+      #       ('Iris', 'Breast Cancer', 'Wine')
+      #   )
+       X, y = get_default_dataset (name)
        X_names = X
-    else:
+     else:
         uploaded_file = st.sidebar.file_uploader(
             "Upload a CSV",
             type='csv'    )
